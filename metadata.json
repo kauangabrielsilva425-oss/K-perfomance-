@@ -1,0 +1,6 @@
+{
+  "name": "K Performance — Treinamento, Nutrição & Evolução",
+  "description": "Plataforma de alta performance para musculação, organização de treinos, planejamento alimentar, suplementação científica e acompanhamento de evolução com design editorial e experiência 3D.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

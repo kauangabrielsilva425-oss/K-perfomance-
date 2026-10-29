@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "Perfil do Usuário",
+      "description": "Dados cadastrais, biometria e metas de treinamento e nutrição do usuário",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID único do usuário autenticado" },
+        "name": { "type": "string", "description": "Nome completo ou apelido do usuário" },
+        "email": { "type": "string", "description": "Endereço de e-mail do usuário" },
+        "age": { "type": "number", "description": "Idade em anos" },
+        "weightKg": { "type": "number", "description": "Peso atual em kg" },
+        "heightCm": { "type": "number", "description": "Altura em centímetros" },
+        "goal": { "type": "string", "description": "Meta principal de treinamento" },
+        "experience": { "type": "string", "description": "Nível de experiência na musculação" },
+        "updatedAt": { "type": "string", "description": "Data ISO da última atualização" }
+      },
+      "required": ["userId", "name", "email"]
+    },
+    "UserAppData": {
+      "title": "Dados Completos da Plataforma K Performance",
+      "description": "Conjunto sincronizado contendo rotinas, treinos, histórico, refeições, hábitos, calendário e medidas do usuário",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID do usuário proprietário dos dados" },
+        "profile": { "type": "object", "description": "Configurações de perfil do usuário" },
+        "routines": { "type": "array", "description": "Lista de rotinas de treino criadas" },
+        "workoutHistory": { "type": "array", "description": "Histórico detalhado de sessões concluídas" },
+        "mealPlan": { "type": "array", "description": "Planejamento alimentar semanal" },
+        "shoppingList": { "type": "array", "description": "Lista de compras de mercado" },
+        "habits": { "type": "array", "description": "Hábitos diários monitorados" },
+        "calendarWorkouts": { "type": "array", "description": "Agenda de treinos no calendário" },
+        "bodyMeasurements": { "type": "array", "description": "Histórico de medições antropométricas" },
+        "favoriteFoodIds": { "type": "array", "description": "IDs dos alimentos favoritados" },
+        "progressPhotos": { "type": "array", "description": "Fotos de progresso salvas" },
+        "updatedAt": { "type": "string", "description": "Timestamp ISO da última sincronização" }
+      },
+      "required": ["userId", "updatedAt"]
+    },
+    "WhitelistConfig": {
+      "title": "Configuração de Lista de Acesso Privado",
+      "description": "Lista autorizada de e-mails com permissão de acesso à plataforma privada K Performance",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "ID da configuração de acesso" },
+        "authorizedEmails": { "type": "array", "description": "Lista de e-mails autorizados" },
+        "updatedBy": { "type": "string", "description": "E-mail do administrador que atualizou a lista" },
+        "updatedAt": { "type": "string", "description": "Timestamp ISO da atualização" }
+      },
+      "required": ["id", "authorizedEmails"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/userData/current": {
+      "schema": { "$ref": "#/entities/UserAppData" },
+      "description": "Dados privados de treino, dieta e evolução exclusivos do usuário proprietário"
+    },
+    "/whitelist/access": {
+      "schema": { "$ref": "#/entities/WhitelistConfig" },
+      "description": "Configuração central da lista de e-mails autorizados na plataforma privada"
+    }
+  }
+}
